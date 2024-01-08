@@ -11,5 +11,5 @@ with open(file_path, 'w') as file:
 
 # appends data to the file
 with open(file_path, "a") as file:
-  file.write("\n now with some more data)
+  file.write("\n now with some more data")
 
