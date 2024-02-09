@@ -15,6 +15,7 @@ set hostnames; yes you need to do this even when dealing
 hostnamectl set-hostname <rank>-<id>
 ```
 ------------------------------------- FOR MAIN ----------------------------------------------
+
 Set Hostname resolutoion 
 ```
   pico /etc/hosts
