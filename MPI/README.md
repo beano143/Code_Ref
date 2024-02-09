@@ -1,6 +1,6 @@
-This instruction set is to set up MPI and node creation for group remote code exicution 
+## This instruction set is to set up MPI and node creation for group remote code exicution 
 
-------------------------------------- FOR EACH ----------------------------------------------
+### ------------------------------------- FOR EACH ----------------------------------------------
 
 Install MPI 
 ```
@@ -14,7 +14,7 @@ set hostnames; yes you need to do this even when dealing
 ```
 hostnamectl set-hostname <rank>-<id>
 ```
-------------------------------------- FOR MAIN ----------------------------------------------
+### ------------------------------------- FOR MAIN ----------------------------------------------
 
 Set Hostname resolutoion 
 ```
@@ -48,7 +48,7 @@ pico /etc/ssh/ssh_config
     <ctr-W> host*
         <username>
 ```
-------------------------------------- FOR LOWER ---------------------------------------------
+### ------------------------------------- FOR LOWER ---------------------------------------------
 
 Set the hostname for master pc in hosts
 ```
@@ -59,7 +59,7 @@ on /home/username
 ```
 pico <script_name>
 ```
-------------------------------------- RUNNING -----------------------------------------------   
+### ------------------------------------- RUNNING -----------------------------------------------   
 
 on the host machine run 
 ```
