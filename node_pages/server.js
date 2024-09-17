@@ -4,31 +4,49 @@ if you are referencing this and on a linux based os,
 there will be minor changes that may be needed.
 */
 
+// basic requirements that your page is going to need
 const https = require("https");
+const express = require("express");
+
+const app = express();
 
 // Reading and finding files 
 const fs = require("fs");
 const path = require("path");
 
 /*
+fs can be utilized with the full direcory path like 
+fs.readFileSync(PATH\TO\FILE)
+
+while path can set up local directories see;
+
+const publicDirectory = path.join(__dirname, 'public');
+const filePath = path.join(publicDirectory, requestedPath);
+
+this can be used for things like SSL selfsigning
+*/
+const sslOptions = {
+    key: fs.readFileSync("PATH\\TO\\privatekey.pem"),
+    cert: fs.readFileSync("PATH\\TO\\certificate.pem")
+};
+
+/*
 Running external files
 exec is good for running shorter lived scripts.
 
 spawn is better suited for streams of data or large amounts of it.
+
+if using both you can use 
+
+const { exec, spawn } = require("child_process");
 */
 const { exec } = require("child_process"); 
 
 const { spawn } = require("child_process");
 
 // getting other js files for local project
-const <REFERENCE> = require("./<FILE_NAME.js>");
+//const <REFERENCE> = require("./<FILE_NAME.js>");
 
-// SSL selfsigning
-
-const sslOptions = {
-    key: fs.readFileSync("PATH/TO/PRIVATEKEY.pem"),
-    cert: fs.readFileSync("PATH/TO/CERTIFICATE.pem")
-};
 
 // Other security
 // Setting up HTTPS server
@@ -53,11 +71,23 @@ function sanitizePath(requestPath) {
 }
 
 // static pathing and sanitization 
-const express = require('express');
+const publicDirectory = path.join(__dirname, 'public');
+
+app.get('/coolpage', (req, res) => {
+	const ip = getClientIp(req);
+    console.log('/-----------|new_connection|-----------/');
+    console.log(`connected from IP: ${ip} at /coolpage`);
+	const paged = `<html><body><h1><p>hello, your IP is ${ip} </p></h1></body></html>`;
+	//you can also display info using res.send, this can be used to for exaple display data
+	res.send(paged)
+});
+
+
+//this is dynamic pathing, it can be used to pull various directories it should be put after static pages and pathing 
 app.get('*', (req, res) => {
     const ip = getClientIp(req);
     console.log('/-----------|new_connection|-----------/');
-    console.log(`Client connected from IP: ${ip}`);
+    console.log(`connected from IP: ${ip} at ${req.url}`);
 
     // Sanitize requested path
     let requestedPath = sanitizePath(req.url === '/' ? 'index.html' : req.url);
@@ -96,5 +126,5 @@ app.use((req, res, next) => {
 });
 // Start the server
 const server = https.createServer(sslOptions, app).listen(443, () => {
-    consol.log("HTTPS Server running ");
+    console.log("HTTPS Server running.");
 });
