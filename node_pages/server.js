@@ -95,7 +95,7 @@ app.get('/runscriptexec', (req, res) =>{
         if (error) {
             console.error(`Error executing local script: ${error.message}`);
             return;
-        }		
+        }
 		if (stderr) {
 			console.stderr(`Error executing local script: ${stderr.message}`);
 			return;
