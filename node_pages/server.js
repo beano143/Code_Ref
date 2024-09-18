@@ -96,15 +96,16 @@ app.get('/runscriptexec', (req, res) =>{
             console.error(`Error executing local script: ${error.message}`);
             return;
         }
-	    if (stderr) {
-	        console.stderr(`Error executing local script: ${stderr.message}`);
-		    return;
-		}
-	    if (stdout) {
-		    console.log(`Local script executed successfully. Output: ${stdout}`);
-		    return;
-		}
-	});
+	if (stderr) {
+	    console.stderr(`Error executing local script: ${stderr.message}`);
+	    return;
+	}
+	
+	if (stdout) {
+	    console.log(`Local script executed successfully. Output: ${stdout}`);
+	    return;
+	}
+    });
 });
 
 // running scripts with spawn
