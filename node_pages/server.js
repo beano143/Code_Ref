@@ -82,6 +82,51 @@ app.get('/coolpage', (req, res) => {
 	res.send(paged)
 });
 
+// running scripts with exec 
+app.get('/runscriptexec', (req, res) =>{
+	const ip = getClientIp(req);
+    console.log('---Running local PowerShell script----');
+    console.log(`connection from ${ip} `)
+    const localScript = path.join(__dirname, 'local-script.ps1');
+	
+    exec(`powershell.exe -ExecutionPolicy Bypass -File "${localScript}"`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error executing local script: ${error.message}`);
+            return;
+        }		
+		if (stderr) {
+			console.stderr(`Error executing local script: ${stderr.message}`);
+			return;
+		}
+		if (stdout) {
+			console.log(`Local script executed successfully. Output: ${stdout}`);
+			return;
+		}
+    });
+});
+
+// running scripts with spawn
+app.get('/runscriptspawn', (req, res) =>{
+	const ip = getClientIp(req);
+    console.log('---Running local PowerShell script----');
+	console.log(`connection from ${ip}`)
+	const localScript = path.join(__dirname, 'local-script.ps1');
+	
+	//exec can be replaced with spawn
+    const script = spawn('powershell.exe', ['-ExecutionPolicy', 'Bypass',  '-File', localScript])
+	
+	script.stdout.on('data', (data) => {
+		console.log(`stdout: ${data}`)
+	});
+	
+	script.stderr.on('data', (data) => {
+		console.error(`stderr: ${data}`)
+	});
+	
+	script.on('close', (code) => {
+		console.log(`script closed with code ${code}`)
+	});
+});
 
 //this is dynamic pathing, it can be used to pull various directories it should be put after static pages and pathing 
 app.get('*', (req, res) => {
@@ -98,7 +143,7 @@ app.get('*', (req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     if (!allowedExtensions.includes(ext)) {
         res.writeHead(403);
-        res.end('Forbidden: Invalid file type.');
+        res.end('Forbidden, you may not have access to this page.');
         return;
     }
 
