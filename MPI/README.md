@@ -63,12 +63,19 @@ pico <script_name>
 
 on the host machine run 
 ```
-mpiexec --hostfile < hostfile > -n <number processes>   <run type(python)> <file_name>
+mpiexec --hostfile < hostfile > -n <number processes>   <run type(e.g: python)> <file_name>
 ```
+or when running it with out any master / servant arrays 
 
+you dont need to set up ssh connections and you only need to install mpi
+
+then all you need to do is run 
+```
+miexec -n <number procesess> <run type(e.g: python)> <file_name>
+```
 
 ------------------------------------- ERRORS ------------------------------------------------
 
 If there is an error in regaurd to a proxy you may have hostnames set up incorectly
 
-problems with permisions might be rooted in file permisions of the ssh key or the defaul ssh username 
+problems with permisions might be rooted in file permisions of the ssh key or the default ssh username 
