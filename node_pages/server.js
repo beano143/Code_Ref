@@ -1,7 +1,7 @@
 /*
 This is the basis for running node on Windows, 
 if you are referencing this and on a linux based os, 
-there will be minor changes that may be needed.
+there may be minor changes that may be needed.
 */
 
 // basic requirements that your page is going to need
