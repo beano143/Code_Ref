@@ -90,6 +90,8 @@ app.get('/runscriptexec', (req, res) =>{
     const localScript = path.join(__dirname, 'local-script.ps1');
 	
     exec(`powershell.exe -ExecutionPolicy Bypass -File "${localScript}"`, (error, stdout, stderr) => {
+	
+		res.send(`<html><body>script ran locally</body></html>`)
         if (error) {
             console.error(`Error executing local script: ${error.message}`);
             return;
@@ -111,6 +113,8 @@ app.get('/runscriptspawn', (req, res) =>{
     console.log('---Running local PowerShell script----');
 	console.log(`connection from ${ip}`)
 	const localScript = path.join(__dirname, 'local-script.ps1');
+	
+	res.send(`<html><body>script ran locally</body></html>`)
 	
 	//exec can be replaced with spawn
     const script = spawn('powershell.exe', ['-ExecutionPolicy', 'Bypass',  '-File', localScript])
