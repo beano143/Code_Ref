@@ -104,7 +104,7 @@ app.get('/runscriptexec', (req, res) =>{
 			console.log(`Local script executed successfully. Output: ${stdout}`);
 			return;
 		}
-    });
+	});
 });
 
 // running scripts with spawn
