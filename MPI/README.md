@@ -62,6 +62,8 @@ pico <script_name>
 ### ------------------------------------- RUNNING -----------------------------------------------   
 
 on the host machine run 
+
+number of processes is best utilized by how many cores you want to use 
 ```
 mpiexec --hostfile < hostfile > -n <number processes>   <run type(e.g: python)> <file_name>
 ```
@@ -71,7 +73,7 @@ you dont need to set up ssh connections and you only need to install mpi
 
 then all you need to do is run 
 ```
-miexec -n <number procesess> <run type(e.g: python)> <file_name>
+miexec -n <number processes> <run type(e.g: python)> <file_name>
 ```
 
 ------------------------------------- ERRORS ------------------------------------------------
